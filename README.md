@@ -27,26 +27,39 @@ The YAML script is responsible for performing several tasks related to the confi
 By executing this script, you automate the process of creating the necessary Apache2 configuration files, setting up the appropriate directories for the websites, and generating welcome pages for each domain name.
 
 ## How this script work ?
+
 - First, you need to install Ansible on your local machine (where you want to run the script, not on the server).
+
 - Change the `hosts` value in `script.yaml` to the IP address of the server or machine that you want to configure Apache2 on.
+
 - Then, you should be able to run the script with the following command:
+    
+    ---
+
   - If you want to run the script on a remote host (not localhost):
     ```sh
     ansible-playbook --private-key=your_private_ssh_key --ask-become-pass --user=your_user script.yaml
     ```
+    ---
+
   - If you want to run the script on a remote host and you use a passphrase for the SSH keys:
     ```sh
     ansible-playbook --private-key=your_private_ssh_key --ask-become-pass --ask-pass --user=your_user script.yaml
     # The --ask-pass option is added
     ```
+    ---
+
   - If you are running the script on your local machine, simply use the command:
     ```sh
     ansible-playbook script.yaml --ask-become-pass
     ```
 
 **Note**:
+
 - Replace `your_private_ssh_key` with your private key and `your_user` with your username, which has access to the server using the private key.
+
 - The command you choose will prompt for the `BECOME pass`, which is the root password on the host.
+
 - Then, it will ask you where your `file is that contains all the domain names`. The file must contain something like:
 
 ```sh

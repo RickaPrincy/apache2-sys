@@ -26,35 +26,35 @@
     - name: Create file configuration for each domain name
       template:
         src: "{{ playbook_dir }}/template/template.conf"
-        dest: "/etc/apache2/sites-available/{{ item }}.conf"
+        dest: "/etc/apache2/sites-available/{{ url }}.conf"
       loop: "{{ names_output.stdout_lines }}"
       loop_control:
-        loop_var: item
+        loop_var: url
     
     #Step5
     - name: Create directory for each domain name
       file:
-        path: "/var/www/{{ item }}"
+        path: "/var/www/{{ url }}"
         state: directory
       loop: "{{ names_output.stdout_lines }}"
       loop_control:
-        loop_var: item
+        loop_var: url
     
     #Step6
     - name: Create html page for each domain name
       template:
         src: "{{ playbook_dir }}/template/template.html"
-        dest: "/var/www/{{ item }}/index.html"
+        dest: "/var/www/{{ url }}/index.html"
       loop: "{{ names_output.stdout_lines }}"
       loop_control:
-        loop_var: item
+        loop_var: url
     
     #Step7
     - name: Active every configuration
-      command: a2ensite {{ item }}.conf
+      command: a2ensite {{ url }}.conf
       loop: "{{ names_output.stdout_lines }}"
       loop_control:
-        loop_var: item
+        loop_var: url
     
     #Step8
     - name: Restart apache2

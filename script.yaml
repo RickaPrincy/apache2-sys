@@ -9,7 +9,7 @@
     - name: Install Apache2 if it's not already installed.
       apt:
         name: apache2
-        state: present
+        state: latest
   
     #Step2
     - name: Copy the domains file to the server
@@ -44,12 +44,21 @@
     - name: Create html page for each domain name
       template:
         src: "{{ playbook_dir }}/template_configuration/template.html"
-        dest: "/var/www/{{ item }}/{{ item }}.html"
+        dest: "/var/www/{{ item }}/index.html"
       loop: "{{ names_output.stdout_lines }}"
       loop_control:
         loop_var: item
     
-
-
-
+    #Step7
+    - name: Active every configuration
+      command: a2ensite {{ item }}.conf
+      loop: "{{ names_output.stdout_lines }}"
+      loop_control:
+        loop_var: item
+    
+    #Step8
+    - name: Restart apache2
+      service:
+        name: apache2
+        state: restarted
     

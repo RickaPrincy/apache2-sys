@@ -25,7 +25,7 @@
     #Step4
     - name: Create file configuration for each domain name
       template:
-        src: "{{ playbook_dir }}/template_configuration/template.conf"
+        src: "{{ playbook_dir }}/template/template.conf"
         dest: "/etc/apache2/sites-available/{{ item }}.conf"
       loop: "{{ names_output.stdout_lines }}"
       loop_control:
@@ -43,7 +43,7 @@
     #Step6
     - name: Create html page for each domain name
       template:
-        src: "{{ playbook_dir }}/template_configuration/template.html"
+        src: "{{ playbook_dir }}/template/template.html"
         dest: "/var/www/{{ item }}/index.html"
       loop: "{{ names_output.stdout_lines }}"
       loop_control:

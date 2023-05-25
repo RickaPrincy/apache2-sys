@@ -14,7 +14,7 @@ This command generates an RSA key pair with a key length of 4096 bits and saves 
 
 - The command will generate two files: private.key (the private key) and private.key.pub (the public key).
 
-## Copying Public Key to Remote Server
+## 2. Copying Public Key to Remote Server
 
 - Run the following command to copy the public key to the remote server:
 ```sh
@@ -32,7 +32,7 @@ ssh-copy-id -i private.key.pub username@ip
 
 - `ssh-copy-id -i private.key.pub root@ip` will not work if you don't set the `PermitRootLogin` to `yes` ( it's mentionned on [README.md](./README.md) )
 
-## Connecting to Server using Private Key
+## 3. Connecting to Server using Private Key
 - Run the following command to connect to the server using the `private key`:
 
 ```sh

@@ -16,7 +16,29 @@ You can also do it with ssh keys if you want,for that, you should read this [fil
 
 If the PermitRootLogin line is already present and set to no, change it to yes.
 
-- Then, restart ssh server with `sudo sytemctl restart ssh` the you should be able to log in as the root user using SSH.
+- Then, restart ssh server with `sudo sytemctl restart ssh` then you should be able to log in as the root user using SSH.
+
+### Local machine configuration
+
+- You need to install `sshpass` on your local machine (the machine from which you will run the script.yaml playbook) to enable `password-based SSH authentication`.
+
+    - Archlinux :
+
+        ```sh
+        sudo pacman -S sshpass
+        ```
+    - Debian :
+
+        ```sh
+        sudo apt install sshpass
+        ```
+- Make sure that the host's fingerprint is already configured. You can do this manually with the following command:
+
+```sh
+ssh <host>
+
+#replace <host> with the IP address of the server
+```
 
 ### Launching the script
 

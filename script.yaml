@@ -1,2 +1,55 @@
 ---
-#loading...
+- name: Automate everything about apache2 configuration
+  hosts: all
+  user: root
+  gather_facts: false
+  tasks:
+
+    #Step1
+    - name: Install Apache2 if it's not already installed.
+      apt:
+        name: apache2
+        state: present
+  
+    #Step2
+    - name: Copy the domains file to the server
+      copy:
+        src: "{{ playbook_dir }}/domains"
+        dest: /tmp/domains
+
+    #Step3
+    - name: Read the domains file
+      command: cat /tmp/domains
+      register: names_output
+    
+    #Step4
+    - name: Create file configuration for each domain name
+      template:
+        src: "{{ playbook_dir }}/template_configuration/template.conf"
+        dest: "/etc/apache2/sites-available/{{ item }}.conf"
+      loop: "{{ names_output.stdout_lines }}"
+      loop_control:
+        loop_var: item
+    
+    #Step5
+    - name: Create directory for each domain name
+      file:
+        path: "/var/www/{{ item }}"
+        state: directory
+      loop: "{{ names_output.stdout_lines }}"
+      loop_control:
+        loop_var: item
+    
+    #Step6
+    - name: Create html page for each domain name
+      template:
+        src: "{{ playbook_dir }}/template_configuration/template.html"
+        dest: "/var/www/{{ item }}/{{ item }}.html"
+      loop: "{{ names_output.stdout_lines }}"
+      loop_control:
+        loop_var: item
+    
+
+
+
+    

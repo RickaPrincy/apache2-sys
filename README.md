@@ -15,7 +15,7 @@ Before using this script, ensure that you have `ansible` installed on your machi
 
 You can also do it with `ssh keys` if you want,for that, you should read this [file](./ssh_key.md) first. 
 
-## Server configuration
+## 1. Server configuration
 
 - Look for the line containing the directive `PermitRootLogin` on the file `/etc/ssh/sshd_config`. If it is commented out (starts with a #), remove the # symbol at the beginning of the line and set it to yes : `PermitRootLogin yes`.
 
@@ -23,7 +23,7 @@ If the PermitRootLogin line is already present and set to no, change it to yes.
 
 - Then, restart ssh server with `sudo sytemctl restart ssh` then you should be able to log in as the root user using SSH.
 
-## Get started 
+## 2. Get started 
 
 - Set your server's ip on the file `hosts` like this :
 
@@ -38,7 +38,7 @@ abd.google.com
 xyz.node.xyz
 ``` 
 
-## Launching the script with ssh keys
+## 3. Option1 :  Launching the script with ssh keys
 
 - You can launch the script with the following command if you use an SSH key to connect as root on the server and not with a root password
 
@@ -54,7 +54,7 @@ ansible-playbook -i hosts --private-key=your_private_ssh_key --ask-pass script.y
 
 - Replace `your_private_ssh_key` with your private key.
 
-## Launching the script with root password
+## 3. Option2 : Launching the script with root password
 
 - You need to install `sshpass` on your local machine (the machine from which you will run the script.yaml playbook) to enable `password-based SSH authentication`.
 
@@ -73,7 +73,7 @@ ansible-playbook -i hosts script.yaml -k
 
 - It will prompt for the `SSH pass`, which is the root password on the host (server).
 
-## Accessing all domain names
+## 4. Accessing all domain names
 
 Now you just need to configure a DNS server or add the following lines to the `/etc/hosts` file on each machine from which you want to access the domain names:
 

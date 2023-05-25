@@ -90,13 +90,13 @@ Now you just need to configure a DNS server or add the following lines to the `/
 192.168.43.30   xyz.node.xyz
 ```
 
-## What should happen when you run the script
+## This should happen when you launch the script
 
-- If you have done all the configuration I said, you should have this when you run the `script.yaml`
+- If you have completed all the configurations as mentioned and you run `script.yaml`, you should have something like :
 
 ![Result](/img/result.png "result")
 
-- After that and configure a dns server or `/etc/hosts/` , you should to be abble to access your sites like this :
+- After configuring a DNS server or the `/etc/hosts` file, you should be able to access your sites like this:
 
 ![sys1Websites](/img/sys1.png "sys1")
 
